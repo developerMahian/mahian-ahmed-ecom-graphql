@@ -1,0 +1,47 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	color: inherit;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary-text-color: #1d1f22;
+	--primary-bg: #fff;
+	--primary-green: #5ece7b;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Raleway", sans-serif;
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--primary-text-color);
+	overflow-x: hidden;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+.container {
+	max-width: 1200px;
+	margin: auto;
+	height: 100%;
+}
