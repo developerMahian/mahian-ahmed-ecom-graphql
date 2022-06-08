@@ -4,9 +4,10 @@ import styled from "styled-components";
 
 import { getCategoriesList } from "../../queries";
 
+import CartBtn from "./subComponents/CartBtn";
+import SwitchCurrencyBtn from "./subComponents/SwitchCurrencyBtn";
+
 import { ReactComponent as HeaderLogo } from "../../assets/svg/a-logo.svg";
-import { ReactComponent as CurrencySwitchIcon } from "../../assets/svg/currency-switch.svg";
-import { ReactComponent as CartIcon } from "../../assets/svg/cart.svg";
 
 export class Header extends Component {
 	constructor(props) {
@@ -27,7 +28,11 @@ export class Header extends Component {
 			<HeaderEl>
 				<LeftNav>
 					{allCategories?.map((name) => (
-						<NavLink key={name} to={name}>
+						<NavLink
+							key={name}
+							exact
+							to={name === "all" ? "/" : name}
+						>
 							{name}
 						</NavLink>
 					))}
@@ -38,8 +43,8 @@ export class Header extends Component {
 				</LogoWrapper>
 
 				<RightNav>
-					<CurrencySwitchIcon />
-					<CartIcon />
+					<SwitchCurrencyBtn />
+					<CartBtn />
 				</RightNav>
 			</HeaderEl>
 		);
@@ -57,6 +62,10 @@ const HeaderEl = styled.header`
 	align-items: center;
 	justify-content: space-between;
 	background-color: var(--primary-bg);
+
+	@media screen and (max-width: 560px) {
+		padding: 0 3rem;
+	}
 `;
 
 const LeftNav = styled.nav`

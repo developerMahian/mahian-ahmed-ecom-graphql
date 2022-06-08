@@ -1,15 +1,17 @@
 import { Component } from "react";
+import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 
-import Header from "./components/Header/Header";
+import { Header } from "./components";
+import { CartPage, ProductDetails, ProductListing } from "./pages";
 
-// import { getAllCategories } from "./queries";
+import { getAllCategories } from "./queries";
 
 class App extends Component {
-	async componentDidMount() {
-		// const result = await getAllCategories();
-		// console.log(result);
-	}
+	// async componentDidMount() {
+	// const result = await getAllCategories();
+	// console.log(result);
+	// }
 
 	render() {
 		return (
@@ -17,7 +19,19 @@ class App extends Component {
 				<Header />
 
 				<Main>
-					<h1>Hello</h1>
+					<Switch>
+						<Route
+							exact
+							path={["/", "/all", "/clothes", "/tech"]}
+							component={ProductListing}
+						/>
+						<Route
+							exact
+							path="/product-details"
+							component={ProductDetails}
+						/>
+						<Route exact path="/cart" component={CartPage} />
+					</Switch>
 				</Main>
 			</>
 		);
@@ -25,8 +39,12 @@ class App extends Component {
 }
 
 const Main = styled.main`
-	margin-top: 8rem;
+	margin: 8rem 0;
 	padding: 1rem 8rem;
+
+	@media screen and (max-width: 560px) {
+		padding: 1rem 3rem;
+	}
 `;
 
 export default App;

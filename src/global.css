@@ -9,6 +9,7 @@
 
 :root {
 	--primary-text-color: #1d1f22;
+	--primary-text-gray: #8d8f9a;
 	--primary-bg: #fff;
 	--primary-green: #5ece7b;
 }
@@ -38,6 +39,7 @@ ul {
 img {
 	max-width: 100%;
 	height: auto;
+	object-fit: cover;
 }
 
 .container {
