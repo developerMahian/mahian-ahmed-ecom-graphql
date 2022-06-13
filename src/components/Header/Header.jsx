@@ -31,7 +31,7 @@ export class Header extends Component {
 						<NavLink
 							key={name}
 							exact
-							to={name === "all" ? "/" : name}
+							to={name === "all" ? "/" : `/${name}`}
 						>
 							{name}
 						</NavLink>

@@ -3,16 +3,9 @@ import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 
 import { Header } from "./components";
-import { CartPage, ProductDetails, ProductListing } from "./pages";
-
-import { getAllCategories } from "./queries";
+import { CartPage, Page404, ProductDetails, ProductListing } from "./pages";
 
 class App extends Component {
-	// async componentDidMount() {
-	// const result = await getAllCategories();
-	// console.log(result);
-	// }
-
 	render() {
 		return (
 			<>
@@ -27,10 +20,11 @@ class App extends Component {
 						/>
 						<Route
 							exact
-							path="/product-details"
+							path="/product-details/:name"
 							component={ProductDetails}
 						/>
 						<Route exact path="/cart" component={CartPage} />
+						<Route path="*" component={Page404} />
 					</Switch>
 				</Main>
 			</>

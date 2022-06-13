@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import {
-	AddToCart,
 	Card,
+	AddToCart,
 	ImageWrapper,
 	OutOfStock,
 	TextInfo,
@@ -14,36 +15,31 @@ class ProductCard extends Component {
 	}
 
 	render() {
-		const { name, gallery, prices, inStock, currency } = this.props;
+		const { id, name, gallery, prices, inStock, currency } = this.props;
 
-		const productPrice = prices.filter(
+		const productPrice = prices?.filter(
 			({ currency: { label } }) => label === currency
-		);
+		)[0];
 
-		const [
-			{
-				amount,
-				currency: { symbol },
-			},
-		] = productPrice;
+		// default empty values for destructuring optionally without errors...
+		const { amount, currency: { symbol } = {} } = productPrice || {};
 
 		return (
-			<Card inStock={inStock}>
-				<ImageWrapper>
-					<img src={gallery[0]} alt={`${name} - image`} />
+			<Card $inStock={inStock}>
+				<Link to={`/product-details/${id}`}>
+					<ImageWrapper>
+						<img src={gallery[0]} alt={`${name} - image`} />
 
-					{!inStock && <OutOfStock>Out of Stock</OutOfStock>}
+						{!inStock && <OutOfStock>Out of Stock</OutOfStock>}
 
-					<AddToCart className="add-to-cart" />
-				</ImageWrapper>
+						<AddToCart className="add-to-cart" $inStock={inStock} />
+					</ImageWrapper>
 
-				<TextInfo>
-					<h3 className="title">{name}</h3>
-					<p className="price">
-						{symbol}
-						{amount}
-					</p>
-				</TextInfo>
+					<TextInfo>
+						<h3 className="title">{name}</h3>
+						<p className="price">{symbol + amount}</p>
+					</TextInfo>
+				</Link>
 			</Card>
 		);
 	}

@@ -13,17 +13,17 @@ export const Card = styled.div`
 		box-shadow: 0 0 2.5rem 0.5rem rgba(0, 0, 0, 0.1);
 
 		.add-to-cart {
-			opacity: 1;
+			opacity: ${({ $inStock }) => ($inStock ? "1" : "0.5 !important")};
 		}
 	}
 
 	img {
-		opacity: ${({ inStock }) => !inStock && "0.5"};
+		opacity: ${({ $inStock }) => !$inStock && "0.5"};
 	}
 
 	.title,
 	.price {
-		color: ${({ inStock }) => !inStock && "var(--primary-text-gray)"};
+		color: ${({ $inStock }) => !$inStock && "var(--primary-text-gray)"};
 	}
 `;
 
@@ -54,13 +54,13 @@ export const AddToCart = styled(ProductCartIcon)`
 	bottom: -24px;
 	width: 6rem;
 	height: 6rem;
-	cursor: pointer;
 	opacity: 0;
 	transition: 0.3s ease-in-out;
 	transition-property: opacity, transform;
+	cursor: ${({ $inStock }) => ($inStock ? "pointer" : "not-allowed")};
 
 	&:hover {
-		transform: scale(1.1);
+		transform: ${({ $inStock }) => ($inStock ? "scale(1.1)" : "none")};
 	}
 `;
 

@@ -5,7 +5,7 @@ const ProductSchema = [
 	"gallery",
 	"description",
 	"category",
-	"attributes {id, name, items {value, id}}",
+	"attributes {id, name, items {displayValue, value, id}}",
 	"prices {amount, currency {label, symbol}}",
 	"brand",
 ];
