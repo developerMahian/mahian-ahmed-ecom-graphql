@@ -8,7 +8,7 @@ export const HeaderEl = styled.header`
 	top: 0px;
 	z-index: 100;
 	height: 7rem;
-	padding: 0 8rem;
+	padding: 0 10rem;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

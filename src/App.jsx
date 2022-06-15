@@ -34,7 +34,7 @@ class App extends Component {
 
 const Main = styled.main`
 	margin: 8rem 0;
-	padding: 1rem 8rem;
+	padding: 1rem 10rem;
 
 	@media screen and (max-width: 560px) {
 		padding: 1rem 3rem;

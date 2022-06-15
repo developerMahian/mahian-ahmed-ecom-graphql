@@ -46,6 +46,8 @@ class SwitchCurrencyBtn extends Component {
 		const { currencyFromats, dropdownOpen } = this.state;
 		const { currencySymbol, switchCurrency } = this.props;
 
+		// console.info(this.props);
+
 		return (
 			<Container ref={this.dropdownRef}>
 				<IconWrapper
