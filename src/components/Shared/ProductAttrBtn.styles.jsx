@@ -13,12 +13,6 @@ export const InputGroup = styled.div`
 	}
 `;
 
-export const SelectionRow = styled.div`
-	display: flex;
-	gap: 1.125rem;
-	margin-bottom: 2.4rem;
-`;
-
 export const HiddenRadio = styled.input`
 	border: 0;
 	clip: rect(0 0 0 0);
@@ -33,15 +27,36 @@ export const HiddenRadio = styled.input`
 `;
 
 export const SelectionLabel = styled.label`
-	min-width: ${({ $isColorBox }) => (!$isColorBox ? "6.3rem" : "3.2rem")};
-	min-height: ${({ $isColorBox }) => (!$isColorBox ? "4.5rem" : "3.2rem")};
-	padding: 1rem 1.5rem;
 	font-family: "Source Sans Pro", sans-serif;
 	background-color: ${({ $colorHex }) => $colorHex || "transparent"};
 	border: 1px solid var(--primary-text-color);
 	text-align: center;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
+`;
+
+export const SelectionRow = styled.div`
+	display: flex;
+	gap: 1.125rem;
+	margin-bottom: ${({ $miniCart }) => ($miniCart ? "0.8rem" : "2.4rem")};
+
+	${SelectionLabel} {
+		${({ $miniCart, $isColorBox }) => {
+			if ($miniCart) {
+				if ($isColorBox) {
+					return "min-width: 1.6rem; min-height: 1.6rem; font-size: 1.4rem; padding: 0.4rem 0.65rem;";
+				} else {
+					return "min-width: 2.4rem; min-height: 2.4rem; font-size: 1.4rem; padding: 0.4rem 0.65rem;";
+				}
+			} else {
+				if ($isColorBox) {
+					return "min-width: 3.2rem; min-height: 3.2rem; padding: 1rem 1.5rem;";
+				} else {
+					return "min-width: 6.3rem; min-height: 4.5rem; padding: 1rem 1.5rem;";
+				}
+			}
+		}}
+	}
 `;
 
 export const CtaBtn = styled.button`
@@ -57,4 +72,10 @@ export const CtaBtn = styled.button`
 	margin-bottom: 4rem;
 	opacity: ${({ $inStock }) => !$inStock && ".7"};
 	cursor: ${({ $inStock }) => !$inStock && "no-drop"};
+`;
+
+export const EmptyCart = styled.h1`
+	font-size: 2.25rem;
+	font-weight: 600;
+	text-align: center;
 `;

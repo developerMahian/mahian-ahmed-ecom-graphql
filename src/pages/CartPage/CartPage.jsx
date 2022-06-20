@@ -1,14 +1,16 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { round } from "lodash";
 
-import { addProduct, clearCart } from "../../features/cart/cartSlice";
+import { clearCart } from "../../features/cart/cartSlice";
 
 import { CartProductCard } from "../../components";
 
-import { EmptyCart, Heading, OrderInfo, OrderSection } from "./CartPage.styles";
-import { CtaBtn } from "../../components/Shared/ProductAttrBtn.styles";
-import { round } from "lodash";
+import { Heading, OrderInfo, OrderSection } from "./CartPage.styles";
+import {
+	CtaBtn,
+	EmptyCart,
+} from "../../components/Shared/ProductAttrBtn.styles";
 
 class CartPage extends Component {
 	render() {
@@ -70,8 +72,4 @@ const mapStateToProps = (state) => ({
 	cart: state.cart,
 });
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ addProduct, clearCart }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartPage);
+export default connect(mapStateToProps, { clearCart })(CartPage);

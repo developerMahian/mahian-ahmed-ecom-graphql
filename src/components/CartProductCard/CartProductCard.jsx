@@ -36,14 +36,14 @@ class CartProductCard extends Component {
 			selectedAttributesCart,
 		} = this.props.product;
 
-		console.log(this.props.product);
+		// console.log(this.props.product);
 
-		const highlightedAttr = attributes?.filter(
-			(attr) => attr.id === selectedAttributesCart
-		);
+		// const highlightedAttr = attributes?.filter(
+		// 	(attr) => attr.id === selectedAttributesCart
+		// );
 
 		return (
-			<Container>
+			<Container $miniCart={this.props.$miniCart}>
 				<LeftCol>
 					<Heading>{brand}</Heading>
 					<SubHeading>{name}</SubHeading>
@@ -52,7 +52,10 @@ class CartProductCard extends Component {
 					{attributes?.map(({ id: attrId, name, items }) => (
 						<div key={attrId}>
 							<SelectionHeading>{name}:</SelectionHeading>
-							<SelectionRow $isColorBox={attrId === "Color"}>
+							<SelectionRow
+								$isColorBox={attrId === "Color"}
+								$miniCart={this.props.$miniCart}
+							>
 								{items?.map((item) => {
 									const { id, displayValue, value } = item;
 
@@ -114,11 +117,7 @@ class CartProductCard extends Component {
 						</button>
 					</QuantityBar>
 
-					<img
-						src={gallery[0]}
-						alt={`${name} preview image`}
-						width={200}
-					/>
+					<img src={gallery[0]} alt={`${name} preview image`} />
 				</RightCol>
 			</Container>
 		);

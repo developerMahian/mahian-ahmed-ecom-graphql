@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { getCategoriesList } from "../../queries";
 import { HeaderEl, LeftNav, LogoWrapper, RightNav } from "./Header.styles";
 
-import CartBtn from "./subComponents/CartBtn";
+import CartBtn from "./subComponents/CartBtn/CartBtn";
 import SwitchCurrencyBtn from "./subComponents/SwitchCurrencyBtn/SwitchCurrencyBtn";
 
 import { ReactComponent as HeaderLogo } from "../../assets/svg/a-logo.svg";
@@ -44,9 +44,7 @@ export class Header extends Component {
 
 				<RightNav>
 					<SwitchCurrencyBtn />
-					<Link to="/cart">
-						<CartBtn />
-					</Link>
+					<CartBtn />
 				</RightNav>
 			</HeaderEl>
 		);

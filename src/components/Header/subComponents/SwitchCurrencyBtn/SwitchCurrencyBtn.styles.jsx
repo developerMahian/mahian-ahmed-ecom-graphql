@@ -28,6 +28,7 @@ export const DropdownItem = styled.li`
 	font-weight: 500;
 	padding: 1rem;
 	cursor: pointer;
+	transition: background-color 0.2s ease-in-out;
 
 	&:first-child {
 		padding-top: 1.5rem;

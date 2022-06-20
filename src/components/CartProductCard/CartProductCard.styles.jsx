@@ -1,20 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 2.4rem 0;
-	border-top: 1px solid #e5e5e5;
-	border-bottom: 1px solid #e5e5e5;
-`;
-
-export const LeftCol = styled.div`
-	h2 {
-		font-size: 3rem;
-		line-height: 2.7rem;
-	}
-`;
+export const LeftCol = styled.div``;
 
 export const Heading = styled.h2`
 	font-weight: 600;
@@ -27,7 +13,6 @@ export const SubHeading = styled.h2`
 
 export const Price = styled.h3`
 	font-weight: 700;
-	font-size: 2.4rem;
 	line-height: 2.4rem;
 	margin-bottom: 2rem;
 `;
@@ -41,11 +26,6 @@ export const SelectionHeading = styled.h3`
 
 export const RightCol = styled.div`
 	display: flex;
-	gap: 2.4rem;
-
-	img {
-		object-fit: contain;
-	}
 `;
 
 export const QuantityBar = styled.div`
@@ -56,24 +36,74 @@ export const QuantityBar = styled.div`
 	align-items: center;
 
 	.quantity {
-		font-size: 2.4rem;
 		font-weight: 500;
 	}
 
 	button {
-		width: 4.5rem;
-		height: 4.5rem;
-		opacity: 0.7;
 		background-color: transparent;
 		border: 1px solid var(--primary-text-color);
 		transition: transform 0.1s ease-in-out;
 
-		svg {
-			margin-top: 0.4rem;
-		}
-
 		&:active {
 			transform: scale(0.95);
+		}
+	}
+`;
+
+export const Container = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-items: stretch;
+	padding: ${({ $miniCart }) => ($miniCart ? "2rem" : "2.4rem")} 0;
+
+	border-top: ${({ $miniCart }) => !$miniCart && "1px solid #e5e5e5"};
+	border-bottom: ${({ $miniCart }) => !$miniCart && "1px solid #e5e5e5"};
+
+	${LeftCol} h2 {
+		font-size: ${({ $miniCart }) => !$miniCart && "3rem"};
+		font-weight: ${({ $miniCart }) => $miniCart && "300"};
+		margin-bottom: ${({ $miniCart }) => $miniCart && "0"};
+		line-height: ${({ $miniCart }) => ($miniCart ? "2.56rem" : "2.7rem")};
+	}
+
+	${Price} {
+		font-size: ${({ $miniCart }) => !$miniCart && "2.4rem"};
+		font-weight: ${({ $miniCart }) => $miniCart && "500"};
+		margin-top: ${({ $miniCart }) => $miniCart && "0.4rem"};
+		margin-bottom: ${({ $miniCart }) => $miniCart && "0.8rem"};
+	}
+
+	${SelectionHeading} {
+		font-size: ${({ $miniCart }) => $miniCart && "1.4rem"};
+		font-weight: ${({ $miniCart }) => $miniCart && "400"};
+		line-height: ${({ $miniCart }) => $miniCart && "1.6rem"};
+		margin-bottom: ${({ $miniCart }) => $miniCart && "0.8rem"};
+	}
+
+	${QuantityBar} {
+		.quantity {
+			font-size: ${({ $miniCart }) => !$miniCart && "2.4rem"};
+		}
+
+		button {
+			width: ${({ $miniCart }) => ($miniCart ? "2.4rem" : "4.5rem")};
+			height: ${({ $miniCart }) => ($miniCart ? "2.4rem" : "4.5rem")};
+			opacity: ${({ $miniCart }) => !$miniCart && "0.7"};
+
+			svg {
+				width: ${({ $miniCart }) => ($miniCart ? "1.8rem" : "2.5rem")};
+				margin-top: ${({ $miniCart }) =>
+					$miniCart ? "0.2rem" : "0.4rem"};
+			}
+		}
+	}
+
+	${RightCol} {
+		gap: ${({ $miniCart }) => ($miniCart ? "0.8rem" : "2.4rem")};
+
+		img {
+			width: ${({ $miniCart }) => ($miniCart ? "100px" : "200px")};
 		}
 	}
 `;

@@ -34,9 +34,3 @@ export const OrderInfo = styled.div`
 		font-weight: 700;
 	}
 `;
-
-export const EmptyCart = styled.h1`
-	font-size: 2.25rem;
-	font-weight: 600;
-	text-align: center;
-`;

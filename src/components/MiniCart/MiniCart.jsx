@@ -1,20 +1,66 @@
 import { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { Container, BottomBtnSection } from "./MiniCart.styles";
+import { clearCart } from "../../features/cart/cartSlice";
+import CartProductCard from "../CartProductCard/CartProductCard";
+
+import { EmptyCart } from "../Shared/ProductAttrBtn.styles";
+import {
+	Container,
+	CartItemSection,
+	BottomBtnSection,
+	TotalQty,
+} from "./MiniCart.styles";
 
 class MiniCart extends Component {
 	render() {
+		const { products, totalQuantity, totalPrice } = this.props.cart;
+
 		return (
 			<Container>
-				<></>
-				
+				<CartItemSection>
+					<h3>
+						<span>my bag,</span> {totalQuantity} items
+					</h3>
+
+					{products.length > 0 ? (
+						<>
+							{products?.map((product, index) => (
+								<CartProductCard
+									key={index}
+									product={product}
+									$miniCart={true}
+								/>
+							))}
+						</>
+					) : (
+						<EmptyCart>
+							No products added to the cart yet....
+						</EmptyCart>
+					)}
+				</CartItemSection>
+
+				<TotalQty>
+					<div>Total</div>
+					<div>${totalPrice.amount}</div>
+				</TotalQty>
+
 				<BottomBtnSection>
-					<button type="button">view bag</button>
-					<button type="button">check out</button>
+					<Link to="/cart" onClick={this.props.closeMiniCart}>
+						view bag
+					</Link>
+					<Link to="#" onClick={this.props.clearCart}>
+						check out
+					</Link>
 				</BottomBtnSection>
 			</Container>
 		);
 	}
 }
 
-export default MiniCart;
+const mapStateToProps = (state) => ({
+	cart: state.cart,
+});
+
+export default connect(mapStateToProps, { clearCart })(MiniCart);
