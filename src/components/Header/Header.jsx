@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { getCategoriesList } from "../../queries";
 import { HeaderEl, LeftNav, LogoWrapper, RightNav } from "./Header.styles";
@@ -44,7 +44,9 @@ export class Header extends Component {
 
 				<RightNav>
 					<SwitchCurrencyBtn />
-					<CartBtn />
+					<Link to="/cart">
+						<CartBtn />
+					</Link>
 				</RightNav>
 			</HeaderEl>
 		);

@@ -1,40 +1,99 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { isEqual, round } from "lodash";
+
+const initialState = {
+	products: [],
+	totalQuantity: 0,
+	// log: 0,
+	totalPrice: {
+		currency: {},
+		amount: 0,
+	},
+};
 
 export const cartSlice = createSlice({
 	name: "cart",
-	initialState: {
-		products: [],
-		totalQuantity: 0,
-		totalPrice: 0,
-	},
+	initialState,
 	reducers: {
 		addProduct: (state, { payload }) => {
-			// console.log(action.payload);
-			// const productPrice = action.payload.prices?.filter(
-			//     ({ currency: { label } }) => label === this.props.currency
-			// )[0];
-
-			// default empty values for destructuring optionally without errors...
-			// const { amount, currency: { symbol } = {} } = productPrice || {};
-
-			// console.log(state.currency);
-
-			const existingProductIndex = state.products.findIndex(
+			const existingProductIdIndex = state.products.findIndex(
 				(product) => product.id === payload.id
 			);
 
-			if (existingProductIndex === -1) {
+			const existingVariantIndex = state.products.findIndex((product) => {
+				return (
+					isEqual(
+						product.selectedAttributesCart,
+						payload.selectedAttributesCart
+					) && product.id === payload.id
+				);
+			});
+
+			let newVariant = false;
+
+			if (existingProductIdIndex === -1) {
 				state.products.push({ ...payload, quantity: 1 });
 			} else {
-				state.products[existingProductIndex].quantity += 1;
+				// if (existingVariantIndex >= 0) {
+				// 	newVariant = !isEqual(
+				// 		state.products[existingVariantIndex]
+				// 			.selectedAttributesCart,
+				// 		payload.selectedAttributesCart
+				// 	);
+
+				// 	if (newVariant) {
+				// 		state.products.push({
+				// 			...payload,
+				// 			quantity: 1,
+				// 		});
+				// 	}
+				// } else {
+				if (existingVariantIndex >= 0) {
+					state.products[existingVariantIndex].quantity += 1;
+				} else {
+					state.products[existingProductIdIndex].quantity += 1;
+				}
+				// }
 			}
 
 			state.totalQuantity += 1;
-			state.totalPrice += payload.amount;
+			state.totalPrice.currency = payload.priceObj.currency;
+			state.totalPrice.amount = round(
+				state.totalPrice.amount + payload.priceObj.amount,
+				2
+			);
 		},
+		removeProduct: (state, { payload }) => {
+			const existingVariantIndex = state.products.findIndex((product) => {
+				return (
+					isEqual(
+						product.selectedAttributesCart,
+						payload.selectedAttributesCart
+					) && product.id === payload.id
+				);
+			});
+
+			if (existingVariantIndex >= 0) {
+				if (payload.quantity === 1) {
+					state.products.splice(existingVariantIndex, 1);
+				} else {
+					state.products[existingVariantIndex].quantity -= 1;
+				}
+			} else {
+				// state.products[existingProductIdIndex].quantity -= 1;
+			}
+
+			state.totalQuantity -= 1;
+
+			state.totalPrice.amount = round(
+				state.totalPrice.amount - payload.priceObj.amount,
+				2
+			);
+		},
+		clearCart: (state) => initialState,
 	},
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

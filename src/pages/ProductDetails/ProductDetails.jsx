@@ -1,6 +1,5 @@
 import { Component, createRef } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import parse from "html-react-parser";
 
 import getProduct from "../../queries/GetProduct";
@@ -8,19 +7,22 @@ import { addProduct } from "../../features/cart/cartSlice";
 
 import {
 	Container,
-	CtaBtn,
 	Desc,
 	Heading,
-	HiddenRadio,
 	ImageCol,
-	InputGroup,
+	PreviewImgWrapper,
 	PrizeRow,
-	SelectionLabel,
-	SelectionRow,
 	SubHeading,
 	TextCol,
 	ThumbnailGroup,
 } from "./ProductDetails.styles";
+import {
+	HiddenRadio,
+	InputGroup,
+	SelectionLabel,
+	SelectionRow,
+	CtaBtn,
+} from "../../components/Shared/ProductAttrBtn.styles";
 
 class ProductDetails extends Component {
 	constructor(props) {
@@ -28,23 +30,7 @@ class ProductDetails extends Component {
 		this.previewImgRef = createRef();
 		this.state = {
 			product: {},
-			selectedAttributes: [
-				{
-					attributeType: "Size",
-				},
-				{
-					attributeType: "Capacity",
-				},
-				{
-					attributeType: "Color",
-				},
-				{
-					attributeType: "With USB 3 ports",
-				},
-				{
-					attributeType: "Touch ID in keyboard",
-				},
-			],
+			selectedAttributes: {},
 		};
 	}
 
@@ -56,28 +42,58 @@ class ProductDetails extends Component {
 		this.setState({ product: queryProduct });
 	}
 
+	checkEmptyObject = (obj) => {
+		return Object.keys(obj).length === 0 && obj.constructor === Object;
+	};
+
+	attributeHandler = (attrId, item) => {
+		this.setState({
+			selectedAttributes: {
+				...this.state.selectedAttributes,
+				[attrId]: {
+					...item,
+				},
+			},
+		});
+	};
+
+	addToCartHandler = (priceObj) => {
+		if (!this.state.product.inStock) {
+			alert("Sorry, this product is out of stock right now...");
+		} else if (
+			this.state.product.attributes.length > 0 &&
+			this.checkEmptyObject(this.state.selectedAttributes)
+		) {
+			alert(
+				"Before adding product to the Cart you must select attributes"
+			);
+		} else {
+			this.props.addProduct({
+				...this.state.product,
+				selectedAttributesCart: this.state.selectedAttributes,
+				priceObj,
+			});
+		}
+	};
+
 	render() {
-		const { name, description, brand, gallery, attributes, prices } =
-			this.state.product;
+		const {
+			brand,
+			name,
+			description,
+			gallery,
+			attributes,
+			prices,
+			inStock,
+		} = this.state.product;
 
 		const productPrice = prices?.filter(
 			({ currency: { label } }) => label === this.props.currency
 		)[0];
 
 		// default empty values for destructuring optionally without errors...
-		const { amount, currency: { symbol } = {} } = productPrice || {};
-
-		const attributeHandler = (attrId, item) => {
-			const newAttrs = this.state.selectedAttributes?.map((attr) => {
-				return attr.attributeType === attrId
-					? { ...attr, ...item }
-					: attr;
-			});
-
-			this.setState({
-				selectedAttributes: newAttrs,
-			});
-		};
+		const { amount: calculatedPrice, currency: { symbol } = {} } =
+			productPrice || {};
 
 		return (
 			<Container>
@@ -98,13 +114,13 @@ class ProductDetails extends Component {
 							))}
 					</ThumbnailGroup>
 
-					<img
-						ref={this.previewImgRef}
-						src={gallery?.[0]}
-						alt={`${name} product preview image`}
-						width={610}
-						height={510}
-					/>
+					<PreviewImgWrapper>
+						<img
+							ref={this.previewImgRef}
+							src={gallery?.[0]}
+							alt={`${name} product preview image`}
+						/>
+					</PreviewImgWrapper>
 				</ImageCol>
 
 				<TextCol>
@@ -130,7 +146,7 @@ class ProductDetails extends Component {
 												name={attrId}
 												id={attrId + id}
 												onChange={() =>
-													attributeHandler(
+													this.attributeHandler(
 														attrId,
 														item
 													)
@@ -139,7 +155,7 @@ class ProductDetails extends Component {
 											<SelectionLabel
 												htmlFor={attrId + id}
 												title={displayValue}
-												$isSizeBox={attrId === "Size"}
+												$isColorBox={attrId === "Color"}
 												$colorHex={
 													attrId === "Color" && value
 												}
@@ -155,18 +171,15 @@ class ProductDetails extends Component {
 
 					<PrizeRow>
 						<SubHeading>prize:</SubHeading>
-						<p className="prize">{symbol + amount || ""}</p>
+						<p className="prize">
+							{symbol + calculatedPrice || ""}
+						</p>
 					</PrizeRow>
 
 					<CtaBtn
-						onClick={() => {
-							this.props.addProduct({
-								...this.state.product,
-								attributesForCart:
-									this.state.selectedAttributes,
-								amount,
-							});
-						}}
+						type="button"
+						$inStock={inStock}
+						onClick={() => this.addToCartHandler(productPrice)}
 					>
 						add to cart
 					</CtaBtn>
@@ -188,8 +201,4 @@ const mapStateToProps = (state) => ({
 	cart: state.cart,
 });
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ addProduct }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
+export default connect(mapStateToProps, { addProduct })(ProductDetails);

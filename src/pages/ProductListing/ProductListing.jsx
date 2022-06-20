@@ -47,7 +47,7 @@ class ProductListing extends Component {
 
 				<CardContainer>
 					{productList?.map((product, index) => (
-						<ProductCard key={index} {...product} />
+						<ProductCard key={index} product={product} />
 					))}
 				</CardContainer>
 			</>
