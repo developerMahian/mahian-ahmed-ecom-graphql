@@ -23,6 +23,7 @@ import {
 	SelectionRow,
 	CtaBtn,
 } from "../../components/Shared/ProductAttrBtn.styles";
+import { isEmpty } from "lodash";
 
 class ProductDetails extends Component {
 	constructor(props) {
@@ -57,11 +58,35 @@ class ProductDetails extends Component {
 		});
 	};
 
+	sortVariantIdProps = () => {
+		let variantID = this.state.product.id;
+
+		const objKeys = Object.keys(this.state.selectedAttributes);
+		const sortingArr = this.state.product.attributes?.map((arr) => arr.id);
+
+		const sortedObjKeys = objKeys.sort(
+			(a, b) => sortingArr.indexOf(a) - sortingArr.indexOf(b)
+		);
+
+		sortedObjKeys.forEach(
+			(key) =>
+				(variantID += `-(${key.toLowerCase()} - ${this.state.selectedAttributes[
+					key
+				].id.toLowerCase()})`)
+		);
+
+		return variantID;
+	};
+
 	addToCartHandler = (priceObj) => {
-		if (!this.state.product.inStock) {
+		const variantID = this.sortVariantIdProps();
+
+		const { inStock, attributes } = this.state.product;
+
+		if (!inStock) {
 			alert("Sorry, this product is out of stock right now...");
 		} else if (
-			this.state.product.attributes.length > 0 &&
+			attributes.length > 0 &&
 			this.checkEmptyObject(this.state.selectedAttributes)
 		) {
 			alert(
@@ -71,6 +96,7 @@ class ProductDetails extends Component {
 			this.props.addProduct({
 				...this.state.product,
 				selectedAttributesCart: this.state.selectedAttributes,
+				variantID: !isEmpty(attributes) ? variantID : null,
 				priceObj,
 			});
 		}
@@ -78,14 +104,18 @@ class ProductDetails extends Component {
 
 	render() {
 		const {
-			brand,
-			name,
-			description,
-			gallery,
-			attributes,
-			prices,
-			inStock,
-		} = this.state.product;
+			selectedAttributes,
+			product: {
+				id,
+				brand,
+				name,
+				description,
+				gallery,
+				attributes,
+				prices,
+				inStock,
+			},
+		} = this.state;
 
 		const productPrice = prices?.filter(
 			({ currency: { label } }) => label === this.props.currency

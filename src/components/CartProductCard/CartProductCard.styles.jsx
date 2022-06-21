@@ -26,6 +26,10 @@ export const SelectionHeading = styled.h3`
 
 export const RightCol = styled.div`
 	display: flex;
+
+	img {
+		object-fit: contain;
+	}
 `;
 
 export const QuantityBar = styled.div`
@@ -104,7 +108,6 @@ export const Container = styled.div`
 
 		img {
 			width: ${({ $miniCart }) => ($miniCart ? "100px" : "200px")};
-			object-fit: ${({ $miniCart }) => $miniCart && "contain"};
 		}
 	}
 `;

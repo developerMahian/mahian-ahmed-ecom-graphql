@@ -31,7 +31,6 @@ export const SelectionLabel = styled.label`
 	background-color: ${({ $colorHex }) => $colorHex || "transparent"};
 	border: 1px solid var(--primary-text-color);
 	text-align: center;
-	cursor: pointer;
 	transition: all 0.2s ease-in-out;
 `;
 
@@ -41,6 +40,8 @@ export const SelectionRow = styled.div`
 	margin-bottom: ${({ $miniCart }) => ($miniCart ? "0.8rem" : "2.4rem")};
 
 	${SelectionLabel} {
+		cursor: ${({ $miniCart }) => !$miniCart && "pointer"};
+
 		${({ $miniCart, $isColorBox }) => {
 			if ($miniCart) {
 				if ($isColorBox) {
@@ -55,7 +56,7 @@ export const SelectionRow = styled.div`
 					return "min-width: 6.3rem; min-height: 4.5rem; padding: 1rem 1.5rem;";
 				}
 			}
-		}}
+		}};
 	}
 `;
 

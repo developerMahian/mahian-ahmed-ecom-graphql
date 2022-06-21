@@ -39,9 +39,12 @@ class CartProductCard extends Component {
 		} = this.props.product;
 
 		const highlightedAttr = [];
+		let chosenFeature = [];
 
 		if (selectedAttributesCart) {
-			Object.keys(selectedAttributesCart).forEach((key) => {
+			chosenFeature = Object.keys(selectedAttributesCart);
+
+			chosenFeature.forEach((key) => {
 				highlightedAttr.push(key + selectedAttributesCart[key].id);
 			});
 		}
@@ -55,48 +58,69 @@ class CartProductCard extends Component {
 					<SubHeading>{name}</SubHeading>
 					<Price>{priceObj.currency.symbol + priceObj.amount}</Price>
 
-					{attributes?.map(({ id: attrId, name, items }) => (
-						<div key={attrId}>
-							<SelectionHeading>{name}:</SelectionHeading>
-							<SelectionRow
-								$isColorBox={attrId === "Color"}
-								$miniCart={this.props.$miniCart}
-							>
-								{items?.map((item) => {
-									const { id, displayValue, value } = item;
-
-									return (
-										<InputGroup
-											key={id}
+					{attributes?.map(({ id: attrId, name, items }) =>
+						chosenFeature?.map(
+							(chosenAttrId) =>
+								chosenAttrId === attrId && (
+									<div key={attrId}>
+										<SelectionHeading>
+											{name}:
+										</SelectionHeading>
+										<SelectionRow
 											$isColorBox={attrId === "Color"}
+											$miniCart={this.props.$miniCart}
 										>
-											<HiddenRadio
-												type="radio"
-												name={attrId}
-												id={attrId + id}
-												// checked={checkSelected(
-												// 	attrId + id
-												// )}
-												onChange={(e) =>
-													e.preventDefault()
-												}
-											/>
-											<SelectionLabel
-												htmlFor={attrId + id}
-												title={displayValue}
-												$isColorBox={attrId === "Color"}
-												$colorHex={
-													attrId === "Color" && value
-												}
-											>
-												{attrId !== "Color" && value}
-											</SelectionLabel>
-										</InputGroup>
-									);
-								})}
-							</SelectionRow>
-						</div>
-					))}
+											{items?.map((item) => {
+												const {
+													id,
+													displayValue,
+													value,
+												} = item;
+
+												return (
+													<InputGroup
+														key={id}
+														$isColorBox={
+															attrId === "Color"
+														}
+													>
+														<HiddenRadio
+															type="radio"
+															id={attrId + id}
+															checked={checkSelected(
+																attrId + id
+															)}
+															onChange={(e) =>
+																e.preventDefault()
+															}
+														/>
+														<SelectionLabel
+															htmlFor={
+																attrId + id
+															}
+															title={displayValue}
+															$isColorBox={
+																attrId ===
+																"Color"
+															}
+															$colorHex={
+																attrId ===
+																	"Color" &&
+																value
+															}
+														>
+															{attrId !==
+																"Color" &&
+																value}
+														</SelectionLabel>
+													</InputGroup>
+												);
+											})}
+										</SelectionRow>
+									</div>
+								)
+						)
+					)}
 				</LeftCol>
 
 				<RightCol>
