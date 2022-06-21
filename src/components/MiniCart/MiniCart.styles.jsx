@@ -16,21 +16,6 @@ export const CartItemSection = styled.div`
 	overflow-y: auto;
 	overflow-x: hidden;
 
-	::-webkit-scrollbar {
-		width: 0.6rem;
-	}
-	::-webkit-scrollbar-track {
-		background: #f1f1f1;
-		border-radius: 1rem;
-	}
-	::-webkit-scrollbar-thumb {
-		background: #c9c9c9;
-		border-radius: 1rem;
-	}
-	::-webkit-scrollbar-thumb:hover {
-		background-color: #b6b6b6;
-	}
-
 	h3 {
 		font-weight: 500;
 		margin-bottom: 3.2rem;

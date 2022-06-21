@@ -19,7 +19,7 @@ class MiniCart extends Component {
 
 		return (
 			<Container>
-				<CartItemSection>
+				<CartItemSection className="custom-scrollbar">
 					<h3>
 						<span>my bag,</span> {totalQuantity} items
 					</h3>

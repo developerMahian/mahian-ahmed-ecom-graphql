@@ -184,7 +184,7 @@ class ProductDetails extends Component {
 						add to cart
 					</CtaBtn>
 
-					<Desc>
+					<Desc className="custom-scrollbar">
 						{parse(description || "", {
 							replace: ({ name }) =>
 								name && name === "h1" && <></>,

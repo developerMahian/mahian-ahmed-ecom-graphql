@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 
 import { addProduct, removeProduct } from "../../features/cart/cartSlice";
 
+import ImageSlider from "../ImageSlider/ImageSlider";
+
 import {
 	Container,
 	LeftCol,
@@ -36,11 +38,15 @@ class CartProductCard extends Component {
 			selectedAttributesCart,
 		} = this.props.product;
 
-		// console.log(this.props.product);
+		const highlightedAttr = [];
 
-		// const highlightedAttr = attributes?.filter(
-		// 	(attr) => attr.id === selectedAttributesCart
-		// );
+		if (selectedAttributesCart) {
+			Object.keys(selectedAttributesCart).forEach((key) => {
+				highlightedAttr.push(key + selectedAttributesCart[key].id);
+			});
+		}
+
+		const checkSelected = (id) => highlightedAttr.some((key) => key === id);
 
 		return (
 			<Container $miniCart={this.props.$miniCart}>
@@ -68,6 +74,9 @@ class CartProductCard extends Component {
 												type="radio"
 												name={attrId}
 												id={attrId + id}
+												// checked={checkSelected(
+												// 	attrId + id
+												// )}
 												onChange={(e) =>
 													e.preventDefault()
 												}
@@ -117,7 +126,11 @@ class CartProductCard extends Component {
 						</button>
 					</QuantityBar>
 
-					<img src={gallery[0]} alt={`${name} preview image`} />
+					{this.props.$miniCart || gallery.length === 1 ? (
+						<img src={gallery[0]} alt={`${name} preview image`} />
+					) : (
+						<ImageSlider gallery={gallery} productName={name} />
+					)}
 				</RightCol>
 			</Container>
 		);

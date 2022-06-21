@@ -4,7 +4,7 @@ import { isEqual, round } from "lodash";
 const initialState = {
 	products: [],
 	totalQuantity: 0,
-	// log: 0,
+	log: [],
 	totalPrice: {
 		currency: {},
 		amount: 0,
@@ -29,33 +29,41 @@ export const cartSlice = createSlice({
 				);
 			});
 
-			let newVariant = false;
+			let newVariant = [];
 
 			if (existingProductIdIndex === -1) {
 				state.products.push({ ...payload, quantity: 1 });
 			} else {
-				// if (existingVariantIndex >= 0) {
-				// 	newVariant = !isEqual(
-				// 		state.products[existingVariantIndex]
-				// 			.selectedAttributesCart,
-				// 		payload.selectedAttributesCart
-				// 	);
+				state.products
+					.slice()
+					.reverse()
+					.forEach((product) => {
+						if (
+							product.id === payload.id &&
+							!isEqual(
+								product.selectedAttributesCart,
+								payload.selectedAttributesCart
+							)
+						) {
+							console.log(newVariant.length);
+							newVariant.push(payload);
+						}
+					});
 
-				// 	if (newVariant) {
-				// 		state.products.push({
-				// 			...payload,
-				// 			quantity: 1,
-				// 		});
-				// 	}
-				// } else {
-				if (existingVariantIndex >= 0) {
-					state.products[existingVariantIndex].quantity += 1;
-				} else {
+				// if (existingVariantIndex >= 0) {
+				if (newVariant.length > 0) {
+					state.products.push({
+						...payload,
+						quantity: 1,
+					});
+				} else if (existingVariantIndex === -1) {
 					state.products[existingProductIdIndex].quantity += 1;
+				} else {
+					state.products[existingVariantIndex].quantity += 1;
 				}
-				// }
 			}
 
+			state.log = newVariant;
 			state.totalQuantity += 1;
 			state.totalPrice.currency = payload.priceObj.currency;
 			state.totalPrice.amount = round(

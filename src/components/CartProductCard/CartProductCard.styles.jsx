@@ -104,6 +104,7 @@ export const Container = styled.div`
 
 		img {
 			width: ${({ $miniCart }) => ($miniCart ? "100px" : "200px")};
+			object-fit: ${({ $miniCart }) => $miniCart && "contain"};
 		}
 	}
 `;

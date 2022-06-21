@@ -102,4 +102,7 @@ export const Desc = styled.div`
 	font-family: "Roboto", sans-serif;
 	line-height: 2.6rem;
 	max-width: 29.2rem;
+	max-height: 25rem;
+	overflow-y: auto;
+	/* box-shadow: inset 0 -2rem 2rem -2rem rgba(0, 0, 0, 0.2); */
 `;
