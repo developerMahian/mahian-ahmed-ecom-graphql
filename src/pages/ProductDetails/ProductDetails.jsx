@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import parse from "html-react-parser";
 
 import getProduct from "../../queries/GetProduct";
-import { addProduct } from "../../features/cart/cartSlice";
+import { addProduct } from "../../features/rootReducer";
 
 import {
 	Container,
@@ -104,18 +104,14 @@ class ProductDetails extends Component {
 
 	render() {
 		const {
-			selectedAttributes,
-			product: {
-				id,
-				brand,
-				name,
-				description,
-				gallery,
-				attributes,
-				prices,
-				inStock,
-			},
-		} = this.state;
+			brand,
+			name,
+			description,
+			gallery,
+			attributes,
+			prices,
+			inStock,
+		} = this.state.product;
 
 		const productPrice = prices?.filter(
 			({ currency: { label } }) => label === this.props.currency
@@ -214,7 +210,7 @@ class ProductDetails extends Component {
 						add to cart
 					</CtaBtn>
 
-					<Desc className="custom-scrollbar">
+					<Desc>
 						{parse(description || "", {
 							replace: ({ name }) =>
 								name && name === "h1" && <></>,

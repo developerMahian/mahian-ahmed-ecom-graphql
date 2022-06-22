@@ -1,29 +1,23 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import {
-	persistStore,
-	persistReducer,
-	FLUSH,
-	REHYDRATE,
-	PAUSE,
-	PERSIST,
-	PURGE,
-	REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import { configureStore } from "@reduxjs/toolkit";
+// import {
+// 	persistStore,
+// 	persistReducer,
+// 	FLUSH,
+// 	REHYDRATE,
+// 	PAUSE,
+// 	PERSIST,
+// 	PURGE,
+// 	REGISTER,
+// } from "redux-persist";
+// import storage from "redux-persist/lib/storage";
 
-import currencyReducer from "../features/currency/currencySlice";
-import cartReducer from "../features/cart/cartSlice";
+import rootReducer from "../features/rootReducer";
 
-const persistConfig = {
-	key: "root",
-	version: 1,
-	storage,
-};
-
-const rootReducer = combineReducers({
-	currency: currencyReducer,
-	cart: cartReducer,
-});
+// const persistConfig = {
+// 	key: "root",
+// 	version: 1,
+// 	storage,
+// };
 
 // const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -62,4 +56,4 @@ export const store = configureStore({
 		}),
 });
 
-export let persistor = persistStore(store);
+// export let persistor = persistStore(store);

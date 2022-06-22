@@ -40,7 +40,9 @@ export const SelectionRow = styled.div`
 	margin-bottom: ${({ $miniCart }) => ($miniCart ? "0.8rem" : "2.4rem")};
 
 	${SelectionLabel} {
-		cursor: ${({ $miniCart }) => !$miniCart && "pointer"};
+		cursor: ${({ $miniCart, $cartPage }) => {
+			if (!$miniCart && !$cartPage) return "pointer";
+		}};
 
 		${({ $miniCart, $isColorBox }) => {
 			if ($miniCart) {
@@ -79,4 +81,5 @@ export const EmptyCart = styled.h1`
 	font-size: 2.25rem;
 	font-weight: 600;
 	text-align: center;
+	margin-bottom: 2rem;
 `;

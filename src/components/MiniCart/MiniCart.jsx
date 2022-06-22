@@ -2,7 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { clearCart } from "../../features/cart/cartSlice";
+import { clearCart } from "../../features/rootReducer";
 import CartProductCard from "../CartProductCard/CartProductCard";
 
 import { EmptyCart } from "../Shared/ProductAttrBtn.styles";
@@ -19,7 +19,7 @@ class MiniCart extends Component {
 
 		return (
 			<Container>
-				<CartItemSection className="custom-scrollbar">
+				<CartItemSection>
 					<h3>
 						<span>my bag,</span> {totalQuantity} items
 					</h3>
@@ -41,10 +41,14 @@ class MiniCart extends Component {
 					)}
 				</CartItemSection>
 
-				<TotalQty>
-					<div>Total</div>
-					<div>${totalPrice.amount}</div>
-				</TotalQty>
+				{products.length > 0 && (
+					<TotalQty>
+						<div>Total</div>
+						<div>
+							{totalPrice.currency.symbol + totalPrice.amount}
+						</div>
+					</TotalQty>
+				)}
 
 				<BottomBtnSection>
 					<Link to="/cart" onClick={this.props.closeMiniCart}>

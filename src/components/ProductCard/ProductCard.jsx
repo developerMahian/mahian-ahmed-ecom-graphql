@@ -1,9 +1,9 @@
-import { isEmpty } from "lodash";
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { isEmpty, isEqual } from "lodash";
 
-import { addProduct } from "../../features/cart/cartSlice";
+import { addProduct } from "../../features/rootReducer";
 
 import {
 	Card,
@@ -19,32 +19,22 @@ class ProductCard extends Component {
 	}
 
 	isAttrSelected = () => {
-		const foundMatches = this.props.cart.products?.filter((product) => {
-			return product.id === this.props.product.id;
-		});
+		const foundMatch = this.props.cart.products?.find(
+			(product) => product.id === this.props.product.id
+		);
 
-		// const isThereAttrs = foundMatches.find(
-		// 	(match) => !isEmpty(match.selectedAttributesCart)
-		// );
-
-		// for (let i = 0; i < foundMatches.length; i++) {
-		// 	if (isEmpty(foundMatches[i].selectedAttributesCart)) {
-		// 		if (i > 0) {
-		// 			return foundMatches[i - 1].selectedAttributesCart;
-		// 		}
-		// 	}
-		// }
-
-		// give last selected variant..
-		return foundMatches[foundMatches.length - 1]?.selectedAttributesCart;
+		return {
+			foundSelectedAttrs: foundMatch?.selectedAttributesCart,
+			foundVariantID: foundMatch?.variantID,
+		};
 	};
 
-	addToCartHandler = (selectedAttributesCart, priceObj) => {
+	addToCartHandler = (foundSelectedAttrs, foundVariantID, priceObj) => {
 		if (!this.props.product.inStock) {
 			alert("Sorry, this product is out of stock right now...");
 		} else if (
 			!isEmpty(this.props.product.attributes) &&
-			isEmpty(selectedAttributesCart)
+			isEmpty(foundSelectedAttrs)
 		) {
 			alert(
 				"Please select some attributes and add to cart from the Product-Detail page First"
@@ -52,7 +42,8 @@ class ProductCard extends Component {
 		} else {
 			this.props.addProduct({
 				...this.props.product,
-				selectedAttributesCart,
+				selectedAttributesCart: foundSelectedAttrs || {},
+				variantID: foundVariantID,
 				priceObj,
 			});
 		}
@@ -68,7 +59,7 @@ class ProductCard extends Component {
 		// default empty values for destructuring optionally without errors...
 		const { amount, currency: { symbol } = {} } = productPrice || {};
 
-		const selectedAttributesCart = this.isAttrSelected();
+		const { foundSelectedAttrs, foundVariantID } = this.isAttrSelected();
 
 		return (
 			<Card $inStock={inStock}>
@@ -84,7 +75,8 @@ class ProductCard extends Component {
 							onClick={(e) => {
 								e.preventDefault();
 								this.addToCartHandler(
-									selectedAttributesCart,
+									foundSelectedAttrs,
+									foundVariantID,
 									productPrice
 								);
 							}}

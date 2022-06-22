@@ -17,6 +17,21 @@
 	--primary-green: #5ece7b;
 }
 
+::-webkit-scrollbar {
+	width: 0.8rem;
+}
+::-webkit-scrollbar-track {
+	background: #eaeaea;
+	border-radius: 1rem;
+}
+::-webkit-scrollbar-thumb {
+	background: #b9b9b9;
+	border-radius: 1rem;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: #b6b6b6;
+}
+
 html {
 	font-size: 62.5%;
 	scroll-behavior: smooth;
@@ -54,19 +69,4 @@ button {
 	max-width: 1200px;
 	margin: auto;
 	height: 100%;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-	width: 0.7rem;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-	background: #f1f1f1;
-	border-radius: 1rem;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-	background: #c9c9c9;
-	border-radius: 1rem;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-	background-color: #b6b6b6;
 }

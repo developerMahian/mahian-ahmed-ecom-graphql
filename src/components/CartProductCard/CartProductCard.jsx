@@ -1,8 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 
-import { addProduct, removeProduct } from "../../features/cart/cartSlice";
+import { addProduct, removeProduct } from "../../features/rootReducer";
 
 import ImageSlider from "../ImageSlider/ImageSlider";
 
@@ -69,6 +68,7 @@ class CartProductCard extends Component {
 										<SelectionRow
 											$isColorBox={attrId === "Color"}
 											$miniCart={this.props.$miniCart}
+											$cartPage={this.props.$cartPage}
 										>
 											{items?.map((item) => {
 												const {
@@ -161,8 +161,4 @@ class CartProductCard extends Component {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({ addProduct, removeProduct }, dispatch);
-};
-
-export default connect(null, mapDispatchToProps)(CartProductCard);
+export default connect(null, { addProduct, removeProduct })(CartProductCard);

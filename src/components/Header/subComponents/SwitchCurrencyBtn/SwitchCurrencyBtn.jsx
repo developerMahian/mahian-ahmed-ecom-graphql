@@ -2,7 +2,7 @@ import { Component, createRef } from "react";
 import { connect } from "react-redux";
 
 import { getCurrencies } from "../../../../queries";
-import { switchCurrency } from "../../../../features/currency/currencySlice";
+import { switchCurrency } from "../../../../features/rootReducer";
 
 import { ReactComponent as ChevronDownIcon } from "../../../../assets/svg/currency-switch.svg";
 import {
@@ -45,8 +45,6 @@ class SwitchCurrencyBtn extends Component {
 	render() {
 		const { currencyFromats, dropdownOpen } = this.state;
 		const { currencySymbol, switchCurrency } = this.props;
-
-		// console.info(this.props);
 
 		return (
 			<Container ref={this.dropdownRef}>

@@ -2,7 +2,7 @@ import { Component } from "react";
 import { connect } from "react-redux";
 import { round } from "lodash";
 
-import { clearCart } from "../../features/cart/cartSlice";
+import { clearCart } from "../../features/rootReducer";
 
 import { CartProductCard } from "../../components";
 
@@ -23,7 +23,11 @@ class CartPage extends Component {
 				{products.length > 0 ? (
 					<>
 						{products?.map((product, index) => (
-							<CartProductCard key={index} product={product} />
+							<CartProductCard
+								key={index}
+								product={product}
+								$cartPage={true}
+							/>
 						))}
 
 						<OrderSection>
