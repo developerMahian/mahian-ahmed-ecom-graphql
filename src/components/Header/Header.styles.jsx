@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const HeaderEl = styled.header`
+export const Container = styled.header`
 	position: fixed;
 	left: 0px;
 	right: 0px;

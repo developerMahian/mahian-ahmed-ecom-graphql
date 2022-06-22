@@ -7,8 +7,7 @@ export const InputGroup = styled.div`
 		background-color: ${({ $isColorBox }) => !$isColorBox && "black"};
 		color: ${({ $isColorBox }) => !$isColorBox && "white"};
 		border-color: ${({ $isColorBox }) => $isColorBox && "transparent"};
-		outline: ${({ $isColorBox }) =>
-			$isColorBox && "1px solid var(--primary-green)"};
+		outline: ${({ $isColorBox }) => $isColorBox && "1px solid var(--primary-green)"};
 		outline-offset: ${({ $isColorBox }) => $isColorBox && "2px"};
 	}
 `;

@@ -5,12 +5,7 @@ import { getCurrencies } from "../../../../queries";
 import { switchCurrency } from "../../../../features/rootReducer";
 
 import { ReactComponent as ChevronDownIcon } from "../../../../assets/svg/currency-switch.svg";
-import {
-	Container,
-	Dropdown,
-	DropdownItem,
-	IconWrapper,
-} from "./SwitchCurrencyBtn.styles";
+import { Container, Dropdown, DropdownItem, IconWrapper } from "./SwitchCurrencyBtn.styles";
 
 class SwitchCurrencyBtn extends Component {
 	constructor(props) {
@@ -34,10 +29,7 @@ class SwitchCurrencyBtn extends Component {
 	}
 
 	handleClickOutside = (event) => {
-		if (
-			this.state.dropdownOpen &&
-			!this.dropdownRef.current.contains(event.target)
-		) {
+		if (this.state.dropdownOpen && !this.dropdownRef.current.contains(event.target)) {
 			this.setState({ dropdownOpen: false });
 		}
 	};

@@ -11,20 +11,20 @@ export const Container = styled.div`
 	cursor: default;
 `;
 
+export const Heading = styled.h3`
+	font-weight: 500;
+	margin-bottom: 1.2rem;
+
+	span {
+		font-weight: 700;
+		text-transform: capitalize;
+	}
+`;
+
 export const CartItemSection = styled.div`
 	max-height: 45rem;
 	overflow-y: auto;
 	overflow-x: hidden;
-
-	h3 {
-		font-weight: 500;
-		margin-bottom: 3.2rem;
-
-		span {
-			font-weight: 700;
-			text-transform: capitalize;
-		}
-	}
 `;
 
 export const TotalQty = styled.div`

@@ -17,9 +17,7 @@ const convertPriceCurrency = (currency, cart, insideAddProduct) => {
 	let currencyPrices = [];
 
 	cart.products?.forEach(({ prices, quantity, priceObj }) => {
-		const correctPrice = prices?.filter(
-			({ currency: { label } }) => label === currency.label
-		)[0];
+		const correctPrice = prices?.filter(({ currency: { label } }) => label === currency.label)[0];
 
 		currencyPrices.push({ ...correctPrice, quantity });
 
@@ -32,10 +30,7 @@ const convertPriceCurrency = (currency, cart, insideAddProduct) => {
 	});
 
 	cart.totalPrice.currency = currency;
-	cart.totalPrice.amount = currencyPrices.reduce(
-		(prev, curr) => round(prev + curr.amount * curr.quantity, 2),
-		0
-	);
+	cart.totalPrice.amount = currencyPrices.reduce((prev, curr) => round(prev + curr.amount * curr.quantity, 2), 0);
 };
 
 const rootSlice = createSlice({
@@ -51,14 +46,10 @@ const rootSlice = createSlice({
 		addProduct: (state, { payload }) => {
 			const { currency, cart } = state;
 
-			const existingProductIdIndex = cart.products.findIndex(
-				(product) => product.id === payload.id
-			);
+			const existingProductIdIndex = cart.products.findIndex((product) => product.id === payload.id);
 
 			const existingVariantIndex = cart.products.findIndex((product) => {
-				return (
-					payload.variantID && product.variantID === payload.variantID
-				);
+				return payload.variantID && product.variantID === payload.variantID;
 			});
 
 			if (existingProductIdIndex === -1) {
@@ -81,14 +72,10 @@ const rootSlice = createSlice({
 			cart.totalQuantity += 1;
 		},
 		removeProduct: ({ cart }, { payload }) => {
-			const existingProductIdIndex = cart.products.findIndex(
-				(product) => product.id === payload.id
-			);
+			const existingProductIdIndex = cart.products.findIndex((product) => product.id === payload.id);
 
 			const existingVariantIndex = cart.products.findIndex((product) => {
-				return (
-					payload.variantID && product.variantID === payload.variantID
-				);
+				return payload.variantID && product.variantID === payload.variantID;
 			});
 
 			if (existingVariantIndex >= 0) {
@@ -106,10 +93,7 @@ const rootSlice = createSlice({
 			}
 
 			cart.totalQuantity -= 1;
-			cart.totalPrice.amount = round(
-				cart.totalPrice.amount - payload.priceObj.amount,
-				2
-			);
+			cart.totalPrice.amount = round(cart.totalPrice.amount - payload.priceObj.amount, 2);
 		},
 		clearCart: (state) => {
 			state.cart = initialState.cart;
@@ -117,7 +101,6 @@ const rootSlice = createSlice({
 	},
 });
 
-export const { addProduct, removeProduct, clearCart, switchCurrency } =
-	rootSlice.actions;
+export const { addProduct, removeProduct, clearCart, switchCurrency } = rootSlice.actions;
 
 export default rootSlice.reducer;

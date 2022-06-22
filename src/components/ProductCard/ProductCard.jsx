@@ -5,13 +5,7 @@ import { isEmpty, isEqual } from "lodash";
 
 import { addProduct } from "../../features/rootReducer";
 
-import {
-	Card,
-	AddToCart,
-	ImageWrapper,
-	OutOfStock,
-	TextInfo,
-} from "./ProductCard.styles";
+import { Card, AddToCart, ImageWrapper, OutOfStock, TextInfo } from "./ProductCard.styles";
 
 class ProductCard extends Component {
 	constructor(props) {
@@ -19,9 +13,7 @@ class ProductCard extends Component {
 	}
 
 	isAttrSelected = () => {
-		const foundMatch = this.props.cart.products?.find(
-			(product) => product.id === this.props.product.id
-		);
+		const foundMatch = this.props.cart.products?.find((product) => product.id === this.props.product.id);
 
 		return {
 			foundSelectedAttrs: foundMatch?.selectedAttributesCart,
@@ -32,13 +24,8 @@ class ProductCard extends Component {
 	addToCartHandler = (foundSelectedAttrs, foundVariantID, priceObj) => {
 		if (!this.props.product.inStock) {
 			alert("Sorry, this product is out of stock right now...");
-		} else if (
-			!isEmpty(this.props.product.attributes) &&
-			isEmpty(foundSelectedAttrs)
-		) {
-			alert(
-				"Please select some attributes and add to cart from the Product-Detail page First"
-			);
+		} else if (!isEmpty(this.props.product.attributes) && isEmpty(foundSelectedAttrs)) {
+			alert("Please select some attributes and add to cart from the Product-Detail page First");
 		} else {
 			this.props.addProduct({
 				...this.props.product,
@@ -52,9 +39,7 @@ class ProductCard extends Component {
 	render() {
 		const { id, name, gallery, prices, inStock } = this.props.product;
 
-		const productPrice = prices?.filter(
-			({ currency: { label } }) => label === this.props.currency
-		)[0];
+		const productPrice = prices?.filter(({ currency: { label } }) => label === this.props.currency)[0];
 
 		// default empty values for destructuring optionally without errors...
 		const { amount, currency: { symbol } = {} } = productPrice || {};
@@ -74,11 +59,7 @@ class ProductCard extends Component {
 							$inStock={inStock}
 							onClick={(e) => {
 								e.preventDefault();
-								this.addToCartHandler(
-									foundSelectedAttrs,
-									foundVariantID,
-									productPrice
-								);
+								this.addToCartHandler(foundSelectedAttrs, foundVariantID, productPrice);
 							}}
 						/>
 					</ImageWrapper>

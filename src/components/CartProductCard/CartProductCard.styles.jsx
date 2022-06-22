@@ -97,8 +97,7 @@ export const Container = styled.div`
 
 			svg {
 				width: ${({ $miniCart }) => ($miniCart ? "1.8rem" : "2.5rem")};
-				margin-top: ${({ $miniCart }) =>
-					$miniCart ? "0.2rem" : "0.4rem"};
+				margin-top: ${({ $miniCart }) => ($miniCart ? "0.2rem" : "0.4rem")};
 			}
 		}
 	}

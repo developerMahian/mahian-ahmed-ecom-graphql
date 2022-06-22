@@ -5,37 +5,15 @@ import { addProduct, removeProduct } from "../../features/rootReducer";
 
 import ImageSlider from "../ImageSlider/ImageSlider";
 
-import {
-	Container,
-	LeftCol,
-	RightCol,
-	Heading,
-	SubHeading,
-	Price,
-	SelectionHeading,
-	QuantityBar,
-} from "./CartProductCard.styles";
-import {
-	HiddenRadio,
-	InputGroup,
-	SelectionLabel,
-	SelectionRow,
-} from "../Shared/ProductAttrBtn.styles";
+import { Container, LeftCol, RightCol, Heading, SubHeading, Price, SelectionHeading, QuantityBar } from "./CartProductCard.styles";
+import { HiddenRadio, InputGroup, SelectionLabel, SelectionRow } from "../Shared/ProductAttrBtn.styles";
 
 import { ReactComponent as PlusIcon } from "../../assets/svg/plus.svg";
 import { ReactComponent as MinusIcon } from "../../assets/svg/minus.svg";
 
 class CartProductCard extends Component {
 	render() {
-		const {
-			brand,
-			name,
-			attributes,
-			gallery,
-			priceObj,
-			quantity,
-			selectedAttributesCart,
-		} = this.props.product;
+		const { brand, name, attributes, gallery, priceObj, quantity, selectedAttributesCart } = this.props.product;
 
 		const highlightedAttr = [];
 		let chosenFeature = [];
@@ -62,56 +40,30 @@ class CartProductCard extends Component {
 							(chosenAttrId) =>
 								chosenAttrId === attrId && (
 									<div key={attrId}>
-										<SelectionHeading>
-											{name}:
-										</SelectionHeading>
+										<SelectionHeading>{name}:</SelectionHeading>
 										<SelectionRow
 											$isColorBox={attrId === "Color"}
 											$miniCart={this.props.$miniCart}
 											$cartPage={this.props.$cartPage}
 										>
 											{items?.map((item) => {
-												const {
-													id,
-													displayValue,
-													value,
-												} = item;
+												const { id, displayValue, value } = item;
 
 												return (
-													<InputGroup
-														key={id}
-														$isColorBox={
-															attrId === "Color"
-														}
-													>
+													<InputGroup key={id} $isColorBox={attrId === "Color"}>
 														<HiddenRadio
 															type="radio"
 															id={attrId + id}
-															checked={checkSelected(
-																attrId + id
-															)}
-															onChange={(e) =>
-																e.preventDefault()
-															}
+															checked={checkSelected(attrId + id)}
+															onChange={(e) => e.preventDefault()}
 														/>
 														<SelectionLabel
-															htmlFor={
-																attrId + id
-															}
+															htmlFor={attrId + id}
 															title={displayValue}
-															$isColorBox={
-																attrId ===
-																"Color"
-															}
-															$colorHex={
-																attrId ===
-																	"Color" &&
-																value
-															}
+															$isColorBox={attrId === "Color"}
+															$colorHex={attrId === "Color" && value}
 														>
-															{attrId !==
-																"Color" &&
-																value}
+															{attrId !== "Color" && value}
 														</SelectionLabel>
 													</InputGroup>
 												);

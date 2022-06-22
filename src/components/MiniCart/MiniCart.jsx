@@ -6,12 +6,7 @@ import { clearCart } from "../../features/rootReducer";
 import CartProductCard from "../CartProductCard/CartProductCard";
 
 import { EmptyCart } from "../Shared/ProductAttrBtn.styles";
-import {
-	Container,
-	CartItemSection,
-	BottomBtnSection,
-	TotalQty,
-} from "./MiniCart.styles";
+import { Container, CartItemSection, BottomBtnSection, TotalQty, Heading } from "./MiniCart.styles";
 
 class MiniCart extends Component {
 	render() {
@@ -19,34 +14,26 @@ class MiniCart extends Component {
 
 		return (
 			<Container>
-				<CartItemSection>
-					<h3>
-						<span>my bag,</span> {totalQuantity} items
-					</h3>
+				<Heading>
+					<span>my bag,</span> {totalQuantity} items
+				</Heading>
 
+				<CartItemSection>
 					{products.length > 0 ? (
 						<>
 							{products?.map((product, index) => (
-								<CartProductCard
-									key={index}
-									product={product}
-									$miniCart={true}
-								/>
+								<CartProductCard key={index} product={product} $miniCart={true} />
 							))}
 						</>
 					) : (
-						<EmptyCart>
-							No products added to the cart yet....
-						</EmptyCart>
+						<EmptyCart>No products added to the cart yet....</EmptyCart>
 					)}
 				</CartItemSection>
 
 				{products.length > 0 && (
 					<TotalQty>
 						<div>Total</div>
-						<div>
-							{totalPrice.currency.symbol + totalPrice.amount}
-						</div>
+						<div>{totalPrice.currency.symbol + totalPrice.amount}</div>
 					</TotalQty>
 				)}
 

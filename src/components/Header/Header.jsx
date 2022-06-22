@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { getCategoriesList } from "../../queries";
-import { HeaderEl, LeftNav, LogoWrapper, RightNav } from "./Header.styles";
+import { Container, LeftNav, LogoWrapper, RightNav } from "./Header.styles";
 
 import CartBtn from "./subComponents/CartBtn/CartBtn";
 import SwitchCurrencyBtn from "./subComponents/SwitchCurrencyBtn/SwitchCurrencyBtn";
@@ -25,14 +25,10 @@ export class Header extends Component {
 		const { allCategories } = this.state;
 
 		return (
-			<HeaderEl>
+			<Container>
 				<LeftNav>
 					{allCategories?.map((name) => (
-						<NavLink
-							key={name}
-							exact
-							to={name === "all" ? "/" : `/${name}`}
-						>
+						<NavLink key={name} exact to={name === "all" ? "/" : `/${name}`}>
 							{name}
 						</NavLink>
 					))}
@@ -46,7 +42,7 @@ export class Header extends Component {
 					<SwitchCurrencyBtn />
 					<CartBtn />
 				</RightNav>
-			</HeaderEl>
+			</Container>
 		);
 	}
 }

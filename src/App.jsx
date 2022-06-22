@@ -13,16 +13,8 @@ class App extends Component {
 
 				<Main>
 					<Switch>
-						<Route
-							exact
-							path={["/", "/all", "/clothes", "/tech"]}
-							component={ProductListing}
-						/>
-						<Route
-							exact
-							path="/product-details/:name"
-							component={ProductDetails}
-						/>
+						<Route exact path={["/", "/all", "/clothes", "/tech"]} component={ProductListing} />
+						<Route exact path="/product-details/:name" component={ProductDetails} />
 						<Route exact path="/cart" component={CartPage} />
 						<Route path="*" component={Page404} />
 					</Switch>

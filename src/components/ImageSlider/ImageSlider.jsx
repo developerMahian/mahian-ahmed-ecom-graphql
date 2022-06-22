@@ -19,12 +19,7 @@ class ImageSlider extends Component {
 					this.props.gallery?.map(
 						(imgUrl, index) =>
 							index === this.state.slideCount && (
-								<img
-									key={imgUrl}
-									src={imgUrl}
-									alt={`${this.props.productName} product preview image`}
-									width={80}
-								/>
+								<img key={imgUrl} src={imgUrl} alt={`${this.props.productName} product preview image`} width={80} />
 							)
 					)}
 
@@ -40,10 +35,7 @@ class ImageSlider extends Component {
 					/>
 					<ArrowIcon
 						onClick={() => {
-							if (
-								this.state.slideCount <
-								this.props.gallery.length - 1
-							) {
+							if (this.state.slideCount < this.props.gallery.length - 1) {
 								this.setState(({ slideCount }) => ({
 									slideCount: slideCount + 1,
 								}));

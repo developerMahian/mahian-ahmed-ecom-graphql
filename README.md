@@ -1,8 +1,19 @@
-# Getting Started
+  <h1 align="center">Project Info for the Recruiter</h1>
 
-Keeping track of the multiple product variants added to the cart.
+## Built With
 
-It should be possible to add a product to the cart from PLP. But it shouldn’t be possible to add a product to the cart without selected attributes. In order to solve this, you can either:
+Some of the tools used in this project:
 
--   Add a product to the cart from PLP only if it doesn’t have any attributes (like AirTag).
--   Add a product to the cart with first selected attributes as defaults.
+-   Redux-Toolkit
+-   Redux-Persist
+-   Tilework Opus
+-   Styled Components
+
+<br />
+
+## Notes
+
+-   Instead of creating seperate slices for the cart and the currency I directly created a rootSlice in order to to access the switched currency data inside the cart slice. So that I can change the pricing object of already added cart-items when the currency changes. Maybe there is a better way to do it.
+-   About pagination topic the guideline said that it was not expected. Also stating to think about scalability of the Application. So I'm a bit confused as to if I should build a pagination or just Load more button at the bottom...
+
+Can't wait to hear your Feedback.😃😃

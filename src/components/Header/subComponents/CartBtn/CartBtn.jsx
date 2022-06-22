@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import MiniCart from "../../../MiniCart/MiniCart";
 
-import { Container, Qty } from "./CartBtn.styles";
+import { CartOverlay, Container, Qty } from "./CartBtn.styles";
 import { ReactComponent as CartIcon } from "../../../../assets/svg/Empty-Cart.svg";
 
 class CartBtn extends Component {
@@ -24,34 +24,31 @@ class CartBtn extends Component {
 	}
 
 	handleClickOutside = (event) => {
-		if (
-			this.state.isCartOpen &&
-			!this.dropdownRef.current.contains(event.target)
-		) {
+		if (this.state.isCartOpen && !this.dropdownRef.current.contains(event.target)) {
 			this.setState({ isCartOpen: false });
 		}
 	};
 
 	render() {
 		return (
-			<Container ref={this.dropdownRef}>
-				<div
-					onClick={() =>
-						this.setState((state) => ({
-							isCartOpen: !state.isCartOpen,
-						}))
-					}
-				>
-					<CartIcon />
-					<Qty>{this.props.totalQty}</Qty>
-				</div>
+			<>
+				<Container ref={this.dropdownRef}>
+					<div
+						onClick={() =>
+							this.setState((state) => ({
+								isCartOpen: !state.isCartOpen,
+							}))
+						}
+					>
+						<CartIcon />
+						<Qty>{this.props.totalQty}</Qty>
+					</div>
 
-				{this.state.isCartOpen && (
-					<MiniCart
-						closeMiniCart={() => this.setState({ isCartOpen: false })}
-					/>
-				)}
-			</Container>
+					{this.state.isCartOpen && <MiniCart closeMiniCart={() => this.setState({ isCartOpen: false })} />}
+				</Container>
+
+				{this.state.isCartOpen && <CartOverlay />}
+			</>
 		);
 	}
 }

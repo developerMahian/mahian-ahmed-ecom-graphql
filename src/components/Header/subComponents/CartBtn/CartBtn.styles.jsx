@@ -19,3 +19,13 @@ export const Qty = styled.div`
 	color: white;
 	background-color: var(--primary-text-color);
 `;
+
+export const CartOverlay = styled.div`
+	position: absolute;
+	inset: 0;
+	top: 7rem;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: -1;
+`;

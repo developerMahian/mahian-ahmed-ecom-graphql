@@ -7,10 +7,7 @@ import { clearCart } from "../../features/rootReducer";
 import { CartProductCard } from "../../components";
 
 import { Heading, OrderInfo, OrderSection } from "./CartPage.styles";
-import {
-	CtaBtn,
-	EmptyCart,
-} from "../../components/Shared/ProductAttrBtn.styles";
+import { CtaBtn, EmptyCart } from "../../components/Shared/ProductAttrBtn.styles";
 
 class CartPage extends Component {
 	render() {
@@ -23,11 +20,7 @@ class CartPage extends Component {
 				{products.length > 0 ? (
 					<>
 						{products?.map((product, index) => (
-							<CartProductCard
-								key={index}
-								product={product}
-								$cartPage={true}
-							/>
+							<CartProductCard key={index} product={product} $cartPage={true} />
 						))}
 
 						<OrderSection>
@@ -38,15 +31,9 @@ class CartPage extends Component {
 									<div>total:</div>
 								</div>
 								<div className="value">
-									<div>
-										{totalPrice.currency.symbol +
-											round(totalPrice.amount * 0.21, 2)}
-									</div>
+									<div>{totalPrice.currency.symbol + round(totalPrice.amount * 0.21, 2)}</div>
 									<div>{totalQuantity}</div>
-									<div>
-										{totalPrice.currency.symbol +
-											totalPrice.amount}
-									</div>
+									<div>{totalPrice.currency.symbol + totalPrice.amount}</div>
 								</div>
 							</OrderInfo>
 							<CtaBtn
@@ -54,9 +41,7 @@ class CartPage extends Component {
 								$inStock={true}
 								$isCartBtn={true}
 								onClick={() => {
-									alert(
-										"Reached the end of the cycle. Clearing the Cart. Start over..."
-									);
+									alert("Reached the end of the cycle. Clearing the Cart. Start over...");
 									this.props.clearCart();
 								}}
 							>
