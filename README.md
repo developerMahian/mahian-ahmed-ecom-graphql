@@ -9,8 +9,6 @@ Some of the tools used in this project:
 -   Tilework Opus
 -   Styled Components
 
-<br />
-
 ## Notes
 
 -   Instead of creating seperate slices for the cart and the currency I directly created a rootSlice in order to to access the switched currency data inside the cart slice. So that I can change the pricing object of already added cart-items when the currency changes. Maybe there is a better way to do it.
