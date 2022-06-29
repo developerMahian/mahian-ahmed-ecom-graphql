@@ -15,10 +15,6 @@ export const Container = styled.div`
 export const ImageCol = styled.div`
 	display: flex;
 	gap: 3.65rem;
-
-	/* @media only screen and (max-width: 950px) {
-		flex-direction: column-reverse;
-	} */
 `;
 
 export const ThumbnailGroup = styled.div`
@@ -26,14 +22,11 @@ export const ThumbnailGroup = styled.div`
 	flex-direction: column;
 	gap: 3rem;
 	flex: 0.2;
-
-	@media only screen and (max-width: 950px) {
-		/* flex-direction: row;
-		justify-content: center; */
-	}
+	max-height: 56rem;
+	min-width: 8rem;
+	overflow-y: auto;
 
 	img {
-		min-width: 8rem;
 		cursor: pointer;
 		transition: box-shadow 0.25s ease-in-out;
 
@@ -44,9 +37,7 @@ export const ThumbnailGroup = styled.div`
 `;
 
 export const PreviewImgWrapper = styled.div`
-	/* flex: 0.6; */
 	max-width: 60.1rem;
-	/* max-height: 50.1rem; */
 	overflow: hidden;
 
 	img {
@@ -58,9 +49,7 @@ export const PreviewImgWrapper = styled.div`
 	}
 `;
 
-export const TextCol = styled.div`
-	/* flex: 0.4; */
-`;
+export const TextCol = styled.div``;
 
 export const Heading = styled.div`
 	font-size: 3rem;

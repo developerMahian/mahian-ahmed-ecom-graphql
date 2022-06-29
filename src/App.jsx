@@ -5,15 +5,30 @@ import styled from "styled-components";
 import { Header } from "./components";
 import { CartPage, Page404, ProductDetails, ProductListing } from "./pages";
 
+import { getCategoriesList } from "./queries";
+
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { allCategories: [] };
+	}
+
+	async componentDidMount() {
+		const { categories } = await getCategoriesList();
+
+		this.setState({ allCategories: categories?.map(({ name }) => name) });
+	}
+
 	render() {
+		const categoryRoutes = this.state.allCategories?.map((category) => `/${category}`);
+
 		return (
 			<>
-				<Header />
+				<Header allCategories={this.state.allCategories} />
 
 				<Main>
 					<Switch>
-						<Route exact path={["/", "/all", "/clothes", "/tech"]} component={ProductListing} />
+						<Route exact path={["/", ...categoryRoutes]} component={ProductListing} />
 						<Route exact path="/product-details/:name" component={ProductDetails} />
 						<Route exact path="/cart" component={CartPage} />
 						<Route path="*" component={Page404} />

@@ -1,7 +1,6 @@
 import { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import { getCategoriesList } from "../../queries";
 import { Container, LeftNav, LogoWrapper, RightNav } from "./Header.styles";
 
 import CartBtn from "./subComponents/CartBtn/CartBtn";
@@ -10,19 +9,8 @@ import SwitchCurrencyBtn from "./subComponents/SwitchCurrencyBtn/SwitchCurrencyB
 import { ReactComponent as HeaderLogo } from "../../assets/svg/a-logo.svg";
 
 export class Header extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { allCategories: [] };
-	}
-
-	async componentDidMount() {
-		const { categories } = await getCategoriesList();
-
-		this.setState({ allCategories: categories?.map(({ name }) => name) });
-	}
-
 	render() {
-		const { allCategories } = this.state;
+		const { allCategories } = this.props;
 
 		return (
 			<Container>

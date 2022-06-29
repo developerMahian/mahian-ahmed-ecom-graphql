@@ -4,7 +4,7 @@ import { ReactComponent as ProductCartIcon } from "../../assets/svg/product-cart
 export const Card = styled.div`
 	width: 100%;
 	max-width: 38.6rem;
-	height: fit-content;
+	height: 45rem;
 	padding: 1.6rem;
 	background-color: var(--primary-bg);
 	transition: box-shadow 0.3s ease-in-out;
@@ -33,6 +33,8 @@ export const ImageWrapper = styled.div`
 
 	img {
 		width: 100%;
+		max-width: 35.6rem;
+		height: 33.8rem;
 	}
 `;
 
